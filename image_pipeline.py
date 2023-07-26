@@ -21,13 +21,10 @@ IMAGE_DIR = "images/"
 
 @task
 def get_image_credentials():
-    #url = "https://api.pexels.com/v1/search?query=soccer&per_page=20"
     url = "https://api.pexels.com/v1/"
     secret_block = Secret.load("pexel-api-key")
 
-    # Access the stored secret
     api_key = secret_block.get()
-    #api_key = "v1hPpoYGw0mSoHnWMwLC4roGGtXEr3Dm3d8qynfcjv99DMnVKs1xKGaE"
     return url, api_key
 
 @task
@@ -65,9 +62,7 @@ def filter_image(image_file_basename, image_filter):
     filter_instance = getattr(ImageFilter, image_filter)
     filtered_image_name = f"{image_file_basename}_filtered.jpg"
     original_image_name = f"{image_file_basename}_original.jpg"
-    #Create image object
     img = Image.open(original_image_name)
-    #Applying the blur filter
     filter_img = img.filter(filter_instance)
     filter_img.save(filtered_image_name)
     return filtered_image_name
